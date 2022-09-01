@@ -1,8 +1,8 @@
 defmodule ClientTest do
   use ExUnit.Case
-  doctest Client
+  doctest Client.CLI
 
   test "greets the world" do
-    assert Client.hello() == :world
+    assert Client.CLI.hello() == :world
   end
 end
