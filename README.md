@@ -16,5 +16,15 @@ I'm going to use elixir and first attempt with erlang's disk based term storage,
 
 I intend to implement the minimal solution as specified, then enhance until I'm bored or run out of reasonable alloc of time.
 
+## log
+- 2022 09 01 10:58 - got horked environment probably working: erlang, elixir, git/ssh
+- 2022 09 01 11:11 - running into build issues of stub with escript.build
+- 2022 09 01 11:30 - shower
+- 2022 09 01 13:00 - baby time
+- 2022 09 01 13:50 - first draft complete
+
+
+
+
 
 

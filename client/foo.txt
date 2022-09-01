@@ -1,4 +1,0 @@
-opened: :word_data
-searching: "blah"
-found: []
-closed: :word_data

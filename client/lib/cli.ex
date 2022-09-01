@@ -1,4 +1,7 @@
 defmodule Client.CLI do
+  @moduledoc """
+  A cli that uses
+  """
   def main([]) do
     raise "you must supply an operation and a word e.g. \"$ client insert foo\" where \"client\" is the cli, \"insert\" is the operation and \"foo\" is the word."
   end
@@ -19,12 +22,11 @@ defmodule Client.CLI do
   end
 
 
-  def process(_, []) do
+  def process(operation, []) do
     raise "You must supply a word, try \"foo\".  Quotes are optional."
   end
 
   def process(operation, args) do
-
     [ word | _ ] = args
 
     open_file()
@@ -59,6 +61,7 @@ defmodule Client.CLI do
     [file, result]
   end
 
+
   def tx(_, _, _) do
     raise "operation not supported. please use insert, search, or remove."
   end
@@ -80,4 +83,6 @@ defmodule Client.CLI do
   def close_file(file) do
     :dets.close(file)
   end
+
+
 end
