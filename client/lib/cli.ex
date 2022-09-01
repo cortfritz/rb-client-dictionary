@@ -22,16 +22,16 @@ defmodule Client.CLI do
   end
 
 
-  def process(operation, []) do
+  def process(_, []) do
     raise "You must supply a word, try \"foo\".  Quotes are optional."
   end
 
   def process(operation, args) do
     [ word | _ ] = args
-
     open_file()
     |> tx(operation, word)
-    |> conclude
+    |> send_result
+    |> close_file
   end
 
 
@@ -75,9 +75,9 @@ defmodule Client.CLI do
   end
 
 
-  def conclude([file, result]) do
-    close_file(file)
+  def send_result([file, result]) do
     if result, do: IO.puts(to_string(result))
+    file
   end
 
   def close_file(file) do
