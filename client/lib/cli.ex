@@ -82,12 +82,64 @@ defmodule Client.CLI do
   end
 
   def close_file(file) do
+    :dets.sync(file)
     :dets.close(file)
   end
 
-  def dump(number) do
-    IO.puts("dumping")
+  def seed() do
+    seed(10)
+
   end
+
+  def seed(n)
+    when n <= 1.0e+6 do
+    file = open_file()
+    1..n
+    |> Enum.map(&Client.CLI.add_new(file, &1))
+    close_file(file)
+
+  end
+
+  def add_new(_, 0) do
+    :ok
+  end
+
+  def add_new(file, iteration) do
+    :dets.insert(file, {"seed_b_" <> to_string(iteration), :valid})
+    add_new(file, iteration-1)
+  end
+
+
+
+  def dump() do
+    file = open_file()
+    key = :dets.first(file)
+    show_value(file, key)
+    close_file(file)
+  end
+
+  def show_value(_, :"$end_of_table") do
+
+    IO.puts("-----done-----")
+  end
+  def show_value(_, '$end_of_table') do
+
+    IO.puts("-----done-----")
+  end
+
+  def show_value(file, key) do
+    [{word, _ }] = :dets.lookup(file, key)
+    IO.inspect(word)
+    # IO.inspect(:dets.lookup(file,key))
+    show_value(file, :dets.next(file, key))
+  end
+
+  def clean() do
+    file = open_file()
+    :dets.delete_all_objects(file)
+    :dets.close(file)
+  end
+
 
   def hello() do
     :world
